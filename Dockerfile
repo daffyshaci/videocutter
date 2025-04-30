@@ -1,5 +1,5 @@
 # Gunakan base image RunPod dengan CUDA dan PyTorch
-FROM runpod/pytorch:2.1.0-py3.10-cuda12.1.1-devel-ubuntu22.04
+FROM runpod/base:0.6.3-cuda11.8.0
 
 WORKDIR /app
 
