@@ -124,7 +124,7 @@ def upload_to_spaces(local_file_path, bucket_name, object_name, acl=DO_SPACES_AC
 
         # Konstruksi URL Publik
         # Format URL: https://{bucket_name}.{region}.digitaloceanspaces.com/{object_name}
-        public_url = f"https://{DO_SPACES_ENDPOINT_URL}/{bucket_name}/{object_name}"
+        public_url = f"{DO_SPACES_ENDPOINT_URL}/{bucket_name}/{object_name}"
         print(f"URL Publik: {public_url}")
         return public_url
 
