@@ -1,25 +1,17 @@
-# Gunakan base image RunPod dengan CUDA dan PyTorch
-FROM runpod/pytorch:2.2.1-py3.10-cuda12.1.1-devel-ubuntu22.04
+FROM runpod/base:0.6.3-cuda11.8.0
 
-WORKDIR /app
+# Set python3.11 as the default python
+RUN ln -sf $(which python3.11) /usr/local/bin/python && \
+    ln -sf $(which python3.11) /usr/local/bin/python3
 
-# Install dependensi sistem
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ffmpeg \
-    git \
-    tzdata \
-    python3-pip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt install ffmpeg -y
 
-# Salin file requirements
-COPY requirements.txt .
+# Install dependencies
+COPY requirements.txt /requirements.txt
+RUN uv pip install --upgrade -r /requirements.txt --no-cache-dir --system
 
-# Install dependensi Python
-RUN pip install --no-cache-dir -r requirements.txt
+# Add files
+ADD handler.py .
 
-# Salin kode handler
-COPY handler.py .
-
-# Perintah default
-CMD ["python", "-u", "handler.py"]
+# Run the handler
+CMD python -u /handler.py
