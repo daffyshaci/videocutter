@@ -1,3 +1,4 @@
 runpod
 yt-dlp
+ffmpeg-python
 boto3
